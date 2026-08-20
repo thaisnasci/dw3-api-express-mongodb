@@ -2,6 +2,8 @@
 // O controller tratará as requisições do cliente
 // Importando o service
 import gameService from "../services/gameService.js";
+//Importando o object id do mongodb
+import { ObjectId } from "mongodb";
 
 // Função que irá tratar a requisição para LISTAR os jogos
 const getAllGames = async (req, res) => {
@@ -23,11 +25,49 @@ const createGame = async (req, res) => {
     //const title = req.body.title
     const { title, year, plataform, price } = req.body;
     await gameService.Create(title, year, plataform, price);
-    res.status(201).json({ message: "Jogo cadastrado com sucesso!" })
+    res.status(201).json({ message: "Jogo cadastrado com sucesso!" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "error interno do servidor." });
   }
 };
+//funcao que trata a requisicao para Excluir um jogo
+const deleteGame = async (req, res) => {
+  try {
+    //coletando a id
+    const id = req.params.id;
+    //Fazendo a validacao do objectId
+    if (ObjectId.isValid(id)) {
+      await gameService.Delete(id);
+      res.sendStatus(204);
+      //Cod.204(NO CONTENT):requisicao bem sucedida,porem nao tem conteudo para retornar
+    } else {
+      res.status(400).json({ error: "Requisição mal-formada, ID inválido." });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error interno no servidor" });
+  }
+};
+//funcao que trata as requisiscoes de alteracoes do jogo
+
+const updateGame = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    if (ObjectId.isValid(id)) {
+      const { title, year, plataform, price } = req.body;
+      await gameService.Update(id, title, year, plataform, price);
+      res.status(200).json({ message: "Jogo alterado com sucesso" });
+    }else{
+      res.status(400).json({
+        error: "Requisição mal-formada, ID inválido.",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "Error interno no servidor" });
+  }
+};
 // Exportando as funções
-export default { getAllGames, createGame };
+export default { getAllGames, createGame, deleteGame, updateGame };

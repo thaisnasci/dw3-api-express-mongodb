@@ -33,6 +33,33 @@ class gameService {
       console.log(error);
     }
   }
+  //Metódo para excluir o jogo
+  async Delete(id) {
+    try {
+      await Game.findByIdAndDelete(id);
+      //O metodo FindByIdandDelete() mongoose busca um registro pela Id e Deleta
+      console.log(`Ò jogo com a id ${id} foi deletado.`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //Metodo para alterar um jogo
+  async Update(id, title, year, plataform, price) {
+    try {
+      await Game.findByIdAndUpdate(id, {
+        title,
+        year,
+        plataform,
+        price,
+      });
+      console.log(`O jogo com a id ${id} foi alterado.`);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //Encerra a classe
 }
 // Exportando a classe
 export default new gameService();
