@@ -59,6 +59,16 @@ class gameService {
     }
   }
 
+  //Metodo para listar um registro unico
+  async getOne(id){
+    try{
+      const game = await Game.findOne({_id:id})
+      return game
+    }catch(error){
+      console.log(error)
+    }
+  }
+
   //Encerra a classe
 }
 // Exportando a classe
