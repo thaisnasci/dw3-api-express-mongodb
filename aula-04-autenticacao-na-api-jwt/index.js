@@ -23,7 +23,7 @@ app.use('/', gameRoutes)
 app.use('/', userRoutes)
 
 // Iniciando a conexão com o MongoDB
-mongoose.connect("mongodb://127.0.0.1:27017/apithegames_aninhado")
+mongoose.connect("mongodb://127.0.0.1:27017/apithegames_alinhado")
 
 // Iniciando o servidor da API
 const port = 4000;
