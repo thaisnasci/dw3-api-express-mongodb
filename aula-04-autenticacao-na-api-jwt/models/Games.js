@@ -1,22 +1,21 @@
-// MODEL DE GAMES
-// Importando o mongoose
+// Importando o monngoose
 import mongoose from "mongoose";
 
 // Schema para documento aninhado (descriptions)
-const descriptionSchema = new mongoose.Schema({
-    genre: String,
-    platform: String,
-    rating: String
+const descriptionsSchema = new mongoose.Schema({
+  genre: String,
+  platform: String,
+  rating: String,
 });
 
 // Criando o schema de Games
 const gameSchema = new mongoose.Schema({
-    title: String,
-    year: Number,
-    price: Number,
-    descriptions: descriptionSchema
+  title: String,
+  year: Number,
+  price: Number,
+  descriptions: descriptionsSchema,
 });
 
-const Game = mongoose.model('Game', gameSchema)
+const Game = mongoose.model("Game", gameSchema);
 
 export default Game;

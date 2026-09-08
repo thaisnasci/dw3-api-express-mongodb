@@ -1,30 +1,27 @@
-// userService.js:
-
 // Importando o Model
-import User from "../models/Users.js"
+import User from "../models/User.js";
+
 class userService {
-    // MÉTODO PARA CADASTRAR UM USUÁRIO
-    async Create(email, password) {
-        try {
-            const newUser = new User({
-                // email: email,
-                // password: password
-                email,
-                password
-            });
-            await newUser.save();
-        } catch (error) {
-            console.log(error);
-        }
+  async Create(email, password) {
+    try {
+      const newUser = new User({
+        email: email,
+        password: password,
+      });
+      await newUser.save();
+    } catch (error) {
+      console.log(error);
     }
-    // MÉTODO PARA LISTAR UM USUÁRIO
-    async getOne(email) {
-        try {
-            const user = await User.findOne({ email: email });
-            return user;
-        } catch (error) {
-            console.log(error);
-        }
+  }
+  // Método para LISTAR um usuário
+  async getOne(email) {
+    try {
+      const user = await User.findOne({ email: email });
+      return user;
+    } catch (error) {
+      console.log(error);
     }
+  }
 }
-export default new userService()
+
+export default new userService();

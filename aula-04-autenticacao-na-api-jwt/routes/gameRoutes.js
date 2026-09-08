@@ -1,22 +1,27 @@
 // Endpoints (rotas) de Games
-import express from 'express';
+import express from "express";
+
 const gameRoutes = express.Router();
+
 // Importando o controller
-import gameController from '../controllers/gameController.js';
+import gameController from "../controllers/gameController.js";
 
-// Endpoint (rota) para listar todos os jogos
-gameRoutes.get("/games", gameController.getAllGames)
+// Immportando o middleware de Autenticação
+import Auth from "../middlewares/Auth.js"
 
-// Endpoint (rota) para cadastrar um jogo
-gameRoutes.post("/games", gameController.createGame)
+// Endpoint (rota) para LISTAR todos os jogos
+gameRoutes.get("/games", Auth.Authorization, gameController.getAllGames);
 
-// Endpoint (rota) para deletar um jogo
-gameRoutes.delete("/games/:id", gameController.deleteGame)
+// Endpoint (rota) para LISTAR um jogo único
+gameRoutes.get("/games/:id", Auth.Authorization, gameController.getOneGame);
 
-// Endpoint (rota) para alterar um jogo
-gameRoutes.put("/games/:id", gameController.updateGame)
+// Endpoint (rota) para CADASTRAR um jogo
+gameRoutes.post("/games", Auth.Authorization, gameController.createGame);
 
-// Endpoint (rota) para listar um jogo único
-gameRoutes.get("/games/:id", gameController.getOneGame)
+// Endpoint (rota) para DELETAR um jogo
+gameRoutes.delete("/games/:id", Auth.Authorization, gameController.deleteGame);
+
+// Endpoint (rota) para ALTERAR um jogo
+gameRoutes.put("/games/:id", Auth.Authorization, gameController.updateGame);
 
 export default gameRoutes;
